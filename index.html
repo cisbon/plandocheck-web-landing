@@ -265,6 +265,214 @@
         html {
             scroll-behavior: smooth;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            animation: slideUp 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #ffffff;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #ffffff;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease, transform 0.2s ease;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 30px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .modal-body h3 {
+            color: #1e3c72;
+            font-size: 1.3rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .modal-body h3:first-child {
+            margin-top: 0;
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        .modal-body ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        .modal-body li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2a5298;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #ffffff;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Modal Responsive */
+        @media (max-width: 768px) {
+            .modal-content {
+                max-height: 95vh;
+                margin: 10px;
+            }
+
+            .modal-header {
+                padding: 20px;
+            }
+
+            .modal-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+
+            .modal-close {
+                width: 35px;
+                height: 35px;
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -335,22 +543,421 @@
         </div>
     </footer>
 
+    <!-- Privacy Policy Modal -->
+    <div id="privacy-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Privacy Policy</h2>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Last Updated:</strong> <span id="privacy-date"></span></p>
+
+                <p>Plan Do Check ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application.</p>
+
+                <h3>1. Information We Collect</h3>
+                <p>We collect information that you provide directly to us:</p>
+                <ul>
+                    <li><strong>Account Information:</strong> Name, email address, and password when you create an account</li>
+                    <li><strong>Goal and Journal Data:</strong> Your goals, tasks, journal entries, and progress tracking information</li>
+                    <li><strong>Usage Data:</strong> Information about how you use the app, including features accessed and time spent</li>
+                    <li><strong>Device Information:</strong> Device type, operating system, unique device identifiers</li>
+                </ul>
+
+                <h3>2. How We Use Your Information</h3>
+                <p>We use your information to:</p>
+                <ul>
+                    <li>Provide, maintain, and improve our services</li>
+                    <li>Sync your data across devices</li>
+                    <li>Send you technical notices and support messages</li>
+                    <li>Respond to your comments and questions</li>
+                    <li>Analyze usage patterns to improve user experience</li>
+                    <li>Protect against fraudulent or illegal activity</li>
+                </ul>
+
+                <h3>3. Data Storage and Security</h3>
+                <p>Your data is encrypted both in transit and at rest. We implement industry-standard security measures to protect your personal information. However, no method of transmission over the Internet is 100% secure.</p>
+
+                <h3>4. Data Sharing</h3>
+                <p>We do not sell your personal information. We may share your information only in the following circumstances:</p>
+                <ul>
+                    <li>With your consent</li>
+                    <li>With service providers who assist in our operations</li>
+                    <li>To comply with legal obligations</li>
+                    <li>To protect our rights and safety</li>
+                </ul>
+
+                <h3>5. Your Rights</h3>
+                <p>You have the right to:</p>
+                <ul>
+                    <li>Access your personal data</li>
+                    <li>Correct inaccurate data</li>
+                    <li>Request deletion of your data</li>
+                    <li>Export your data</li>
+                    <li>Opt-out of marketing communications</li>
+                </ul>
+
+                <h3>6. Children's Privacy</h3>
+                <p>Our service is not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13.</p>
+
+                <h3>7. Changes to This Policy</h3>
+                <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.</p>
+
+                <h3>8. Contact Us</h3>
+                <p>If you have questions about this Privacy Policy, please contact us through the Contact form.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div id="terms-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Terms of Service</h2>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Last Updated:</strong> <span id="terms-date"></span></p>
+
+                <p>Please read these Terms of Service ("Terms") carefully before using the Plan Do Check mobile application ("Service") operated by Plan Do Check ("us," "we," or "our").</p>
+
+                <h3>1. Acceptance of Terms</h3>
+                <p>By accessing or using the Service, you agree to be bound by these Terms. If you disagree with any part of the terms, you may not access the Service.</p>
+
+                <h3>2. Description of Service</h3>
+                <p>Plan Do Check is a productivity application that helps users structure their lives through goal setting, task management, and daily journaling across multiple time horizons (7-year, yearly, quarterly, monthly, weekly, and daily).</p>
+
+                <h3>3. User Accounts</h3>
+                <ul>
+                    <li>You must create an account to use certain features of the Service</li>
+                    <li>You are responsible for maintaining the confidentiality of your account</li>
+                    <li>You are responsible for all activities that occur under your account</li>
+                    <li>You must notify us immediately of any unauthorized use of your account</li>
+                    <li>You must be at least 13 years old to create an account</li>
+                </ul>
+
+                <h3>4. User Content</h3>
+                <p>You retain all rights to the content you create using our Service (goals, tasks, journal entries, etc.). By using our Service, you grant us a license to store, display, and process your content solely to provide the Service to you.</p>
+
+                <h3>5. Acceptable Use</h3>
+                <p>You agree not to:</p>
+                <ul>
+                    <li>Use the Service for any illegal purpose</li>
+                    <li>Violate any laws in your jurisdiction</li>
+                    <li>Infringe on intellectual property rights</li>
+                    <li>Transmit any malicious code or viruses</li>
+                    <li>Attempt to gain unauthorized access to our systems</li>
+                    <li>Interfere with or disrupt the Service</li>
+                    <li>Impersonate any person or entity</li>
+                </ul>
+
+                <h3>6. Subscription and Payment</h3>
+                <ul>
+                    <li>Some features may require a paid subscription</li>
+                    <li>Subscription fees are billed in advance on a recurring basis</li>
+                    <li>You can cancel your subscription at any time</li>
+                    <li>Refunds are handled according to the app store's refund policy</li>
+                </ul>
+
+                <h3>7. Intellectual Property</h3>
+                <p>The Service and its original content, features, and functionality are owned by Plan Do Check and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.</p>
+
+                <h3>8. Termination</h3>
+                <p>We may terminate or suspend your account and access to the Service immediately, without prior notice, for any reason, including breach of these Terms. Upon termination, your right to use the Service will immediately cease.</p>
+
+                <h3>9. Limitation of Liability</h3>
+                <p>In no event shall Plan Do Check be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the Service.</p>
+
+                <h3>10. Disclaimer</h3>
+                <p>The Service is provided on an "AS IS" and "AS AVAILABLE" basis without warranties of any kind, either express or implied.</p>
+
+                <h3>11. Changes to Terms</h3>
+                <p>We reserve the right to modify or replace these Terms at any time. We will provide notice of any material changes by posting the new Terms on this page.</p>
+
+                <h3>12. Governing Law</h3>
+                <p>These Terms shall be governed by and construed in accordance with applicable laws, without regard to conflict of law provisions.</p>
+
+                <h3>13. Contact</h3>
+                <p>For questions about these Terms, please contact us through the Contact form.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Imprint Modal -->
+    <div id="imprint-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Imprint</h2>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Information according to § 5 TMG (German Telemedia Act)</strong></p>
+
+                <h3>Service Provider</h3>
+                <p>
+                    <strong>Plan Do Check</strong><br>
+                    <!-- Replace with actual company information --><br>
+                    [Company Legal Name]<br>
+                    [Street Address]<br>
+                    [Postal Code, City]<br>
+                    [Country]
+                </p>
+
+                <h3>Contact</h3>
+                <p>
+                    <strong>Email:</strong> contact@plan-do-check.com<br>
+                    <strong>Phone:</strong> [Phone Number]<br>
+                    <strong>Website:</strong> https://www.plan-do-check.com
+                </p>
+
+                <h3>Represented by</h3>
+                <p>
+                    [CEO/Managing Director Name]<br>
+                    [Additional Representatives if applicable]
+                </p>
+
+                <h3>Register Entry</h3>
+                <p>
+                    <strong>Registration Court:</strong> [Court Name]<br>
+                    <strong>Registration Number:</strong> [Registration Number]<br>
+                    <strong>VAT ID:</strong> [VAT Identification Number according to § 27a UStG]
+                </p>
+
+                <h3>Responsible for Content</h3>
+                <p>
+                    According to § 55 Abs. 2 RStV:<br>
+                    [Name of Person Responsible]<br>
+                    [Address]
+                </p>
+
+                <h3>EU Dispute Resolution</h3>
+                <p>
+                    The European Commission provides a platform for online dispute resolution (ODR):
+                    <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">
+                        https://ec.europa.eu/consumers/odr/
+                    </a>
+                </p>
+                <p>
+                    We are not willing or obliged to participate in dispute resolution proceedings before a consumer arbitration board.
+                </p>
+
+                <h3>Liability for Content</h3>
+                <p>
+                    As a service provider, we are responsible for our own content on these pages in accordance with general legislation. However, we are not obligated to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.
+                </p>
+
+                <h3>Liability for Links</h3>
+                <p>
+                    Our offer contains links to external third-party websites over whose content we have no influence. Therefore, we cannot assume any liability for this third-party content. The respective provider or operator of the pages is always responsible for the content of the linked pages.
+                </p>
+
+                <h3>Copyright</h3>
+                <p>
+                    The content and works created by the site operators on these pages are subject to copyright law. The reproduction, editing, distribution, and any kind of use outside the limits of copyright require the written consent of the respective author or creator.
+                </p>
+
+                <h3>Image Credits</h3>
+                <p>
+                    [List any image sources, icon libraries, or design assets used]
+                </p>
+
+                <p><em>Note: This is a template. Please replace placeholder text with your actual company information.</em></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Contact Us</h2>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>We'd love to hear from you! Whether you have questions, feedback, or need support, please reach out to us.</p>
+
+                <h3>Get in Touch</h3>
+                <p>
+                    <strong>Email:</strong> <a href="mailto:contact@plan-do-check.com">contact@plan-do-check.com</a><br>
+                    <strong>Support:</strong> <a href="mailto:support@plan-do-check.com">support@plan-do-check.com</a>
+                </p>
+
+                <h3>Send us a Message</h3>
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="contact-name">Name *</label>
+                        <input type="text" id="contact-name" name="name" required placeholder="Your Name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-email">Email *</label>
+                        <input type="email" id="contact-email" name="email" required placeholder="your.email@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-subject">Subject *</label>
+                        <input type="text" id="contact-subject" name="subject" required placeholder="How can we help you?">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-message">Message *</label>
+                        <textarea id="contact-message" name="message" required placeholder="Tell us more about your inquiry..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+
+                <div id="form-success" style="display: none; margin-top: 20px; padding: 15px; background: #d4edda; color: #155724; border-radius: 8px;">
+                    Thank you for your message! We'll get back to you as soon as possible.
+                </div>
+
+                <h3>Follow Us</h3>
+                <p>Stay updated with the latest features and productivity tips:</p>
+                <p>
+                    <!-- Add your social media links here -->
+                    <strong>Twitter:</strong> @plandocheck<br>
+                    <strong>Instagram:</strong> @plandocheck<br>
+                    <strong>LinkedIn:</strong> Plan Do Check
+                </p>
+
+                <h3>Business Hours</h3>
+                <p>
+                    Monday - Friday: 9:00 AM - 6:00 PM (CET)<br>
+                    Saturday - Sunday: Closed<br>
+                    <em>We typically respond within 24-48 hours</em>
+                </p>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Automatically update copyright year
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // Smooth scroll for internal links
+        // Update dates in modals
+        const currentDate = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        if (document.getElementById('privacy-date')) {
+            document.getElementById('privacy-date').textContent = currentDate;
+        }
+        if (document.getElementById('terms-date')) {
+            document.getElementById('terms-date').textContent = currentDate;
+        }
+
+        // Modal functionality
+        const modals = {
+            'privacy': document.getElementById('privacy-modal'),
+            'terms': document.getElementById('terms-modal'),
+            'imprint': document.getElementById('imprint-modal'),
+            'contact': document.getElementById('contact-modal')
+        };
+
+        // Open modal function
+        function openModal(modalId) {
+            const modal = modals[modalId];
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        }
+
+        // Close modal function
+        function closeModal(modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Add click event listeners to all modal links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                const href = this.getAttribute('href').substring(1); // Remove the #
+
+                // Check if it's a modal link
+                if (modals[href]) {
+                    openModal(href);
                 }
             });
+        });
+
+        // Add click event listeners to all close buttons
+        document.querySelectorAll('.modal-close').forEach(button => {
+            button.addEventListener('click', function () {
+                const modal = this.closest('.modal');
+                closeModal(modal);
+            });
+        });
+
+        // Close modal when clicking outside the modal content
+        Object.values(modals).forEach(modal => {
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    closeModal(modal);
+                }
+            });
+        });
+
+        // Close modal on Escape key press
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                Object.values(modals).forEach(modal => {
+                    if (modal.classList.contains('active')) {
+                        closeModal(modal);
+                    }
+                });
+            }
+        });
+
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = {
+                name: document.getElementById('contact-name').value,
+                email: document.getElementById('contact-email').value,
+                subject: document.getElementById('contact-subject').value,
+                message: document.getElementById('contact-message').value
+            };
+
+            // Here you would typically send the data to your server
+            // For now, we'll just show a success message
+            console.log('Form submitted:', formData);
+
+            // Show success message
+            document.getElementById('form-success').style.display = 'block';
+
+            // Reset form
+            this.reset();
+
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('form-success').style.display = 'none';
+            }, 5000);
+
+            // TODO: Replace with actual form submission logic
+            // Example with fetch:
+            /*
+            fetch('YOUR_FORM_ENDPOINT', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('form-success').style.display = 'block';
+                this.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error sending your message. Please try again.');
+            });
+            */
         });
 
         // Simple analytics placeholder - add your tracking code here
